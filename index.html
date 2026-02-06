@@ -1,0 +1,44 @@
+<audio id="bg-music" loop>
+    <source src="thinkin-bout-you.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    function unlockSite() {
+        const music = document.getElementById('bg-music');
+        
+        // Start the Frank Ocean vibe
+        music.volume = 0; // Start at 0 for a fade-in effect
+        music.play().then(() => {
+            // Gradually increase volume to 50% over 2 seconds
+            let vol = 0;
+            let interval = setInterval(() => {
+                if (vol < 0.5) {
+                    vol += 0.05;
+                    music.volume = vol;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 200);
+        }).catch(err => {
+            console.log("Audio needs user interaction (the click) to play.");
+        });
+
+        // The UI unlock logic
+        const overlay = document.getElementById('envelope-overlay');
+        const main = document.getElementById('main-container');
+        
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+            overlay.style.visibility = 'hidden';
+            main.style.display = 'block';
+            setTimeout(() => {
+                main.style.opacity = '1';
+                // Trigger the timer and animations
+                startTimer();
+                initObserver();
+            }, 100);
+        }, 800);
+    }
+    
+    /* ... Keep your existing startTimer() and initObserver() functions below ... */
+</script>
